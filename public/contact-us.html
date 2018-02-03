@@ -199,7 +199,7 @@ nav-hidden - Open nav on icon click
                     </div> <!-- end section-header -->
 
                     <div class="col-md-6 col-md-offset-3">
-                        <form class="" id="contact" method="post" name="form" action="send-email-mailgun.php">
+                        <form id="contact" method="POST" name="contact" netlify>
                             <div class="form-group">
                                 <label for="name">Full Name</label>
                                 <input type="text" class="form-control input-style-2" id="name" name="name" placeholder="Full Name" required="">
@@ -218,6 +218,8 @@ nav-hidden - Open nav on icon click
                             </div>
                             <div class="form-group">
                                 <div class="g-recaptcha" data-sitekey="6LdsHEQUAAAAAFF2xwgKRqqYgrS4pC15aARS6xCN" data-callback="reCaptchaVerify"></div>
+                                <input type="hidden" id="checkcapverify" >
+                                <p id="captchVerify" style="color:red;"></p>
                             </div>
 
                             <button type="submit" class="st-btn primary-btn hvr-back hvr-sweep-to-right pull-right">Submit</button>
@@ -358,22 +360,12 @@ nav-hidden - Open nav on icon click
 
     <script type="text/javascript">
 
-        // For Google ReCaptcha
-        var doSubmit = false;
-        // function reCaptchaVerify(response) {
-        //     if (response === document.querySelector('.g-recaptcha-response').value) {
-        //         doSubmit = true;
-        //     }
-        // }
-        // document.forms['form'].addEventListener('submit',function(e){
-        //     if (doSubmit) {
-        //         /* submit form or do something else */
-        //     }
-        //     else {
-        //         e.preventDefault();
-        //         swal("Error!", "You need to submit correct Google ReCaptcha!", "error");
-        //     }
-        // });
+        function reCaptchaVerify(response) {
+            if (response === document.querySelector('.g-recaptcha-response').value) {
+              $("#checkcapverify").val(1);
+              $("#captchVerify").text("");
+            }
+        }
 
 
         $(function($) {
@@ -582,8 +574,11 @@ nav-hidden - Open nav on icon click
             },
             submitHandler: function (form) {
               var $form = $(form)
-              console.log($form.serializeArray());
-              form.submit();
+              if($("#checkcapverify").val() == 1){
+                form.submit();
+              }else{
+                $("#captchVerify").text("Please verify security");
+              }
             }
           });
       });
