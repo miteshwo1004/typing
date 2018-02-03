@@ -216,12 +216,11 @@ nav-hidden - Open nav on icon click
                                 <label for="message">Message</label>
                                 <textarea class="form-control input-style-2" id="message" name="message" placeholder="Enter your message.." required="" rows="3"></textarea>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <div class="g-recaptcha" data-sitekey="6LdsHEQUAAAAAFF2xwgKRqqYgrS4pC15aARS6xCN" data-callback="reCaptchaVerify"></div>
                                 <input type="hidden" id="checkcapverify" >
                                 <p id="captchVerify" style="color:red;"></p>
-                            </div>
-
+                            </div> -->
                             <button type="submit" class="st-btn primary-btn hvr-back hvr-sweep-to-right pull-right">Submit</button>
                         </form>
                     </div> <!-- end col-md-6 -->
@@ -574,11 +573,11 @@ nav-hidden - Open nav on icon click
             },
             submitHandler: function (form) {
               var $form = $(form)
-              if($("#checkcapverify").val() == 1){
+              // if($("#checkcapverify").val() == 1){
                 form.submit();
-              }else{
-                $("#captchVerify").text("Please verify security");
-              }
+              // }else{
+              //   $("#captchVerify").text("Please verify security");
+              // }
             }
           });
       });
